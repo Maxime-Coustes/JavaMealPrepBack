@@ -1,0 +1,26 @@
+meta {
+  name: createIngredientAction
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/ingredients
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Poulet",
+    "unit": "g",
+    "proteins": 31,
+    "fat": 3.6,
+    "carbs": 0,
+    "calories": 165
+  }
+}
+
+settings {
+  encodeUrl: true
+}
