@@ -40,6 +40,13 @@ Copier le code
 mvn clean install 
 ```
 
+# BONUS : runtime
+- mvn clean compile
+- mvn spring-boot:run
+- CTRL+F9 (Build Project)
+- Tricks: nano ~/.bashrc (alias mvn-run='mvn clean compile && mvn spring-boot:run'
+  )
+
 ## 3️⃣ PostgreSQL - Développement local
 Créer la base et l’utilisateur
 CREATE DATABASE mealprep;
