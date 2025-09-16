@@ -110,3 +110,14 @@ Lister les tables :
 Quitter PostgreSQL :
 
 \q
+
+
+
+
+
+
+## WINDOWS
+
+path to the project:
+ cd /c/Workspace/JavaMealPrepBack/
+

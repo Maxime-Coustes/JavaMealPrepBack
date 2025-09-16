@@ -1,0 +1,9 @@
+CREATE TABLE ingredient (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    unit VARCHAR(10),
+    proteins REAL,
+    fat REAL,
+    carbs REAL,
+    calories REAL
+);
