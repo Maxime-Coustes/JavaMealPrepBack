@@ -65,6 +65,7 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Flyway : handle database migration -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
