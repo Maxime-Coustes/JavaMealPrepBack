@@ -18,7 +18,7 @@ public class IngredientService {
     private final IngredientRepository repository;
 
     public IngredientService(IngredientRepository repository) {
-        this.repository = repository; 
+        this.repository = repository;
     }
 
     @SuppressWarnings("null")
@@ -54,7 +54,13 @@ public class IngredientService {
 
     @SuppressWarnings("null")
     @Transactional
-    public void deleteIngredient(Long id) {
-        repository.deleteById(id);
+    public Ingredient deleteIngredient(Long id) {
+        Ingredient ingredient = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Ingredient with id '" + id + "' doesn't exist"));
+
+        repository.delete(ingredient);
+
+        return ingredient; // on renvoie l'objet supprimé
     }
 }

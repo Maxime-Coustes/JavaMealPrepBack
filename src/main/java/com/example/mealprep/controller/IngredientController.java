@@ -62,8 +62,12 @@ public class IngredientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        service.deleteIngredient(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ApiResponse<Ingredient>> delete(@PathVariable Long id) {
+        Ingredient deleted = service.deleteIngredient(id);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(
+                        "Ingredient with id '" + id + "' has been deleted.",
+                        deleted));
     }
 }
