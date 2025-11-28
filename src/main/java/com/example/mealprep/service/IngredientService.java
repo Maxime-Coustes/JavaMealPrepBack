@@ -18,9 +18,10 @@ public class IngredientService {
     private final IngredientRepository repository;
 
     public IngredientService(IngredientRepository repository) {
-        this.repository = repository;
+        this.repository = repository; 
     }
 
+    @SuppressWarnings("null")
     @Transactional
     public Ingredient createIngredient(Ingredient ingredient) {
         return repository.save(ingredient);
@@ -45,11 +46,13 @@ public class IngredientService {
         return repository.findAll();
     }
 
+    @SuppressWarnings("null")
     public Ingredient getById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Ingredient with id '" + id + "' doesn't exist"));
     }
 
+    @SuppressWarnings("null")
     @Transactional
     public void deleteIngredient(Long id) {
         repository.deleteById(id);

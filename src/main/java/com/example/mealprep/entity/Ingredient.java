@@ -1,8 +1,6 @@
 package com.example.mealprep.entity;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "ingredient", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
@@ -22,11 +20,6 @@ public class Ingredient {
     private Float fat;
     private Float carbs;
     private Float calories;
-
-    //@OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
-
-    public Ingredient() {}
 
     // Getters & Setters
     public Long getId() { return id; }
@@ -50,16 +43,5 @@ public class Ingredient {
     public Float getCalories() { return calories; }
     public void setCalories(Float calories) { this.calories = calories; }
 
-    //public Set<RecipeIngredient> getRecipeIngredients() { return recipeIngredients; }
-
-    /*public void addRecipeIngredient(RecipeIngredient ri) {
-        recipeIngredients.add(ri);
-        ri.setIngredient(this);
-    }
-
-    public void removeRecipeIngredient(RecipeIngredient ri) {
-        recipeIngredients.remove(ri);
-        ri.setIngredient(null);
-    }*/
 }
 
