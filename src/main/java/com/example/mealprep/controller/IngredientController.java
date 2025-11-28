@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/ingredients")
@@ -41,8 +42,8 @@ public class IngredientController {
             return ResponseEntity
                     .status(isConflict ? HttpStatus.CONFLICT : HttpStatus.CREATED)
                     .body(ApiResponse.success(isConflict
-                                    ? "No ingredient created: all provided ingredients already exist."
-                                    : "Ingredient creation result.",
+                            ? "No ingredient created: all provided ingredients already exist."
+                            : "Ingredient creation result.",
                             response));
 
         } catch (Exception e) {
@@ -58,8 +59,7 @@ public class IngredientController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Ingredient> getById(@PathVariable Long id) {
-        Ingredient ing = service.getById(id);
-        return (ing != null) ? ResponseEntity.ok(ing) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(service.getById(id));
     }
 
     @DeleteMapping("/{id}")

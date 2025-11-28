@@ -21,22 +21,18 @@ mvn spring-boot:run
 Vérifier les mises à jour des dépendances :
 
 bash
-Copier le code
 mvn versions:display-dependency-updates
 Scanner les vulnérabilités des dépendances :
 
 bash
-Copier le code
 mvn org.owasp:dependency-check-maven:check
 Générer les sources et mettre à jour les dossiers (IntelliJ Community) :
 
 bash
-Copier le code
 mvn generate-sources
 Compiler et tester :
 
 bash
-Copier le code
 mvn clean install 
 ```
 

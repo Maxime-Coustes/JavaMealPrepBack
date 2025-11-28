@@ -3,6 +3,9 @@ package com.example.mealprep.service;
 import com.example.mealprep.dto.IngredientCreationResult;
 import com.example.mealprep.entity.Ingredient;
 import com.example.mealprep.repository.IngredientRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +35,7 @@ public class IngredientService {
             repository.findByName(ingredient.getName())
                     .ifPresentOrElse(
                             existing::add,
-                            () -> created.add(repository.save(ingredient))
-                    );
+                            () -> created.add(repository.save(ingredient)));
         }
 
         return new IngredientCreationResult(created, existing);
@@ -44,7 +46,8 @@ public class IngredientService {
     }
 
     public Ingredient getById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Ingredient with id '" + id + "' doesn't exist"));
     }
 
     @Transactional
