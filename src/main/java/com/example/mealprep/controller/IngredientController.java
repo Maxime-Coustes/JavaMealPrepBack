@@ -3,18 +3,22 @@ package com.example.mealprep.controller;
 import com.example.mealprep.dto.ApiResponse;
 import com.example.mealprep.dto.IngredientCreationResponse;
 import com.example.mealprep.dto.IngredientCreationResult;
+import com.example.mealprep.dto.IngredientResponseDTO;
 import com.example.mealprep.entity.Ingredient;
 import com.example.mealprep.service.IngredientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/ingredients")
 public class IngredientController {
 
     private final IngredientService service;
+    private static final Logger logger = LoggerFactory.getLogger(IngredientController.class);
 
     public IngredientController(IngredientService service) {
         this.service = service;
@@ -52,13 +56,33 @@ public class IngredientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Ingredient>> getAll() {
-        return ResponseEntity.ok(service.getAllIngredients());
+    public ResponseEntity<List<IngredientResponseDTO>> getAll() {
+        List<Ingredient> ingredients = service.getAllIngredients();
+
+        List<IngredientResponseDTO> dtos = ingredients.stream()
+                .map(ingredient -> new IngredientResponseDTO(ingredient.getId(),
+                        ingredient.getName(), ingredient.getUnit(), ingredient.getProteins(),
+                        ingredient.getFat(), ingredient.getCarbs(), ingredient.getCalories()))
+                .toList();
+
+                logger.info("\n\n //////////// response: {} ////////////", dtos);
+
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Ingredient> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getById(id));
+    public ResponseEntity<IngredientResponseDTO> getById(@PathVariable Long id) {
+        logger.info("\n\n //////////// Valeur de maVariable: {} ////////////", id);
+        Ingredient ingredient = service.getById(id);
+        IngredientResponseDTO dto = new IngredientResponseDTO(ingredient.getId(),
+                ingredient.getName(), ingredient.getUnit(), ingredient.getProteins(),
+                ingredient.getFat(), ingredient.getCarbs(), ingredient.getCalories());
+
+        ResponseEntity<IngredientResponseDTO> response = ResponseEntity.ok(dto);
+
+        logger.info("\n\n //////////// response: {} ////////////", response.getBody());
+        return response;
+        // return ResponseEntity.ok(service.getById(id));
     }
 
     @DeleteMapping("/{id}")
